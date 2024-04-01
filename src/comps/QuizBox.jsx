@@ -7,7 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import "./utils.css"
 
-function QuizBox({questionID, question,defaultValue, options , setAnswer}) {
+function QuizBox({questionID, question,show , options , setAnswer}) {
     const [value, setValue] = React.useState("")
     const handleChange = (event) => {
         setValue(event.target.value)
@@ -19,10 +19,16 @@ function QuizBox({questionID, question,defaultValue, options , setAnswer}) {
     }, [value])
         
   return (
-    <div className='bg-preset w-1/3 grid place-items-start  p-5 border-transparent rounded-lg'>
-    <FormControl >
-        <FormLabel id={questionID}  >
-            {question}
+    <div className='  w-1/3  grid place-items-start  p-5 border-transparent rounded-lg' style={{display: show ? 'block' : 'none'}}>
+    <FormControl sx={{
+    '& .MuiSvgIcon-root': {
+      fontSize: 28,
+      color: colors.pink[800]
+    },
+  }}
+  >
+        <FormLabel id={questionID} sx={{fontSize: 28 , fontWeight:'bolder',color:'white'}}   >
+            {questionID}.  {question}
         </FormLabel>
         <RadioGroup
             aria-label={questionID}
@@ -34,12 +40,13 @@ function QuizBox({questionID, question,defaultValue, options , setAnswer}) {
             {options?.map((option, index) => {
                 return (
                     <FormControlLabel
+                        
                         key={index}
                         value={option}
                         control={<Radio />}
                         label={option}
                         sx={{
-                            color: colors.blue[800],
+                            color: colors.blue[100],
                             '&.Mui-checked': {
                               color: colors.blue[600],
                             },

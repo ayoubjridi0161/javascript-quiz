@@ -1,0 +1,28 @@
+.terminal {
+    width: 400px;
+    min-height: 70px ;
+    border: 2px solid #000;
+    border-radius: 5px;
+    font-family: monospace;
+    overflow: hidden;
+  }
+  
+  .terminal-header {
+    background-color: #000;
+    color: #fff;
+    padding: 5px;
+  }
+  
+  .terminal-body {
+    padding: 10px;
+  }
+  
+  .terminal-body p {
+    margin: 0;
+  }
+  
+  /* Example styling for command line input */
+  .command-line {
+    color: #0f0; /* Green */
+  }
+  

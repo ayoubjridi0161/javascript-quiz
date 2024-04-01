@@ -1,0 +1,74 @@
+
+  [
+    
+    {
+      "question": "What is the primary use of the `forEach` method for arrays?",
+      "options": [
+        "To iterate over an array and perform an action on each element",
+        "To modify the original array and return a new one",
+        "To check if a specific element exists in the array",
+        "To sort the elements of the array"
+      ],
+      "answer": "To iterate over an array and perform an action on each element"
+    },
+    {
+      "question": "How can you add event listeners to DOM elements using JavaScript?",
+      "options": [
+        "Using the `addEventListener` method",
+        "By directly modifying the element's properties",
+        "Through inline event handlers in HTML",
+        "All of the above"
+      ],
+      "answer": "All of the above"
+    },
+    {
+      "question": "What does the `map` method for arrays do?",
+      "options": [
+        "Iterates over the array and modifies each element",
+        "Filters elements based on a condition",
+        "Reduces the array to a single value",
+        "Creates a new array with transformed elements"
+      ],
+      "answer": "Creates a new array with transformed elements"
+    },
+    {
+      "question": "How can you access an element with the ID 'myElement' in the DOM using JavaScript?",
+      "options": [
+        "document.getElementById('myElement')",
+        "document.querySelector('#myElement')",
+        "Both A and B",
+        "There's no way to access elements by ID in JavaScript"
+      ],
+      "answer": "Both A and B"
+    },
+    {
+      "question": "What is the correct syntax for defining a function in JavaScript?",
+      "options": [
+        "function name(parameters) { code }",
+        "var name = function(parameters) { code }",
+        "const name = (parameters) => { code }",
+        "All of the above"
+      ],
+      "answer": "All of the above"
+    },
+    {
+      "question": "What is the output of the following code snippet: `console.log(typeof null);`",
+      "options": [
+        "object",
+        "string",
+        "number",
+        "undefined"
+      ],
+      "answer": "object"
+    },
+    
+    {
+      "question": "What is the purpose of the `this` keyword in JavaScript?",
+      "options": [
+        "Refers to the current object context within a function",
+        "Defines a global variable",
+        "Used to call a function",
+        "Stores the last evaluated value"
+      ],
+      "answer": "Refers to the current object context within a function"
+    }]

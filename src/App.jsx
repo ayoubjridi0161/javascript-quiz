@@ -1,63 +1,64 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import QuizBox from './comps/QuizBox'
+import TerminalDiv from './comps/TerminalDiv'
 import * as React from 'react'
+import Text from './Text'
 import './pattern.css'
+import StartButton from './StartButton'
 function App() {
   const questions= [
       {
         "id": 1,
-        "question": "What does HTML stand for?",
+        "question": `console.log(0.1 + 0.2 == 0.3);`,
         "options": [
-          "Hyper Text Markup Language",
-          "Hyperlinks and Text Markup Language",
-          "Home Tool Markup Language",
-          "Hyper Tool Markup Language"
+          "true",
+          "false",
         ],
-        "answer": "Hyper Text Markup Language"
+        "answer": "false"
       },
       {
         "id": 2,
-        "question": "What is the correct way to write a comment in JavaScript?",
+        "question": "console.log(typeof NaN);",
         "options": [
-          "// This is a comment",
-          "<!-- This is a comment -->",
-          "This is a comment",
-          "/* This is a comment */"
+          "NaN",
+          "number",
+          "null",
+          "undefined"
         ],
-        "answer": "// This is a comment"
+        "answer": "number"
       },
       {
         "id": 3,
-        "question": "Which symbol is used for single-line comments in JavaScript?",
+        "question": "console.log(018 - 015)",
         "options": [
-          "//",
-          "#",
-          "/",
-          "<!--"
+          "NaN",
+          "3",
+          "5",
+          "13"
         ],
-        "answer": "//"
+        "answer": "5"
       },
       {
         "id": 4,
-        "question": "What does CSS stand for?",
+        "question": "console.log(false == '0');",
         "options": [
-          "Creative Style Sheets",
-          "Cascading Style Sheets",
-          "Computer Style Sheets",
-          "Colorful Style Sheets"
+          "true",
+          "false"
         ],
-        "answer": "Cascading Style Sheets"
+        "answer": "true"
       },
       {
         "id": 5,
-        "question": "Which HTML tag is used to link an external JavaScript file?",
+        "question":  (
+          <pre>
+            {`let array = [1, 2, 3]; \narray[6] = 9; \nconsole.log(array[5]);`}
+          </pre>
+        ),
         "options": [
-          "<js>",
-          "<javascript>",
-          "<script>",
-          "<link>"
+          "1",
+          "2","9","undefined"
         ],
-        "answer": "<script>"
+        "answer": "undefined"
       },
       {
         "id": 6,
@@ -225,26 +226,32 @@ function App() {
         "answer": "To handle errors that may occur in a block of code"
       }
     ] 
-    
+    const [ output, setOutput ] = React.useState('')
+    const [showQuiz, setShowQuiz] = React.useState(false)
     const [disable, setDisable] = React.useState([true,false])
-  const handleAnswer = (questionID, value) => {
+    const handleAnswer = (questionID, value) => {
     setAnswers((prev) => {
       return {
         ...prev,
         [questionID]: value
       }
     })
-    console.log(answers)
     }
-    const checkAnswer = (questionID, value) => {
-      if (answers[questionID] === value) {
-        return true
-      } else {
-        return false
+    const calculateScore = () => {
+      let score = 0
+      for (let i = 0; i < questions.length; i++) {
+        if (answers[i+1] == questions[i].answer) {
+          score++}
       }
+      return (`${score}/${questions.length} 👏`)
+    }
+    const checkAnswer = ( ) => {
+      return answers[questionIndex+1] == questions[questionIndex].answer ? 'correct' : 'incorrect'
     }
   const [questionIndex, setQuestionIndex] = React.useState(0)
   const [answers, setAnswers] = React.useState()
+  
+  console.log(answers)
   React.useEffect(() => {
     if(questionIndex === 0){
       setDisable([true,false])
@@ -253,34 +260,51 @@ function App() {
     }else{
       setDisable([false,false])
     }},[questionIndex]);
-    
+    const handleClick = () => { setShowQuiz(true) }
 
   return (
     
-    <main className='bg-black w-screen h-screen grid place-items-center  pt-10 '>
-    {/*quiz box */ }
-          <QuizBox 
-            key={questions[questionIndex].id}
-            questionID={questions[questionIndex].id}
-            question={questions[questionIndex].question}
-            options={questions[questionIndex].options}
+    <main className=' w-screen h-screen flex flex-col items-center justify-center   '>
+      { !showQuiz ? <div className='w-1/3 h-1/3 bg-slate-300 flex flex-col justify-between  border rounded-md mt-10 p-3'>
+        <Text/>
+        <StartButton handleClick={handleClick} />
+      </div> :  
+      
+    <>
+    <div className='grid place-items-center  pt-10 w-full '>
+      { questions.map((question, index) => (
+          <QuizBox show={index === questionIndex}
+            key={question.id}
+            questionID={question.id}
+            question={question.question}
+            options={question.options}
             setAnswer={handleAnswer}
-            defaultValue={answers?.[questions[questionIndex].id]} 
-          />
-{/*button group */}
-<div className='flex gap-5'>
-            <button disabled={disable[0]}
+            defaultValue={answers?.[question.id]}
+
+          />)
+          )}
+    </div>
+    <div className='flex gap-5 '>
+        <button disabled={disable[0]} style={{backgroundColor: disable[0] ? '#94a3b8' : '#3b82f6'}}
             className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
-            onClick={() => setQuestionIndex((prev) => prev -1)}
+            onClick={() => {setQuestionIndex((prev) => prev -1);setOutput('')}}
             >previous</button>
-            <button  onClick={()=>{console.log(checkAnswer())}} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
-            check
-            </button>
-            <button disabled={disable[1]}
+        <button  onClick={()=>{setOutput(checkAnswer())}} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
+            check</button>
+        <button disabled={disable[1]} style={{backgroundColor: disable[1] ? '#94a3b8' : '#3b82f6'}}
             className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
-            onClick={() => setQuestionIndex((prev) => prev + 1)}
+            onClick={() => {setQuestionIndex((prev) => prev + 1);setOutput('')} }
             >Next</button>
-</div>
+        
+    </div>
+    { questionIndex === questions.length - 1 &&
+    <button className=" button" onClick={()=> setOutput(`you scored: ${calculateScore()}`)} >Submit answers </button>
+    }
+
+    <TerminalDiv content={output}/>
+</>
+    }
+
 
     </main>
   )
